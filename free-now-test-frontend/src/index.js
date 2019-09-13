@@ -1,42 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Car} from './components/cars.js';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-  
-  class App extends React.Component {
-    state = {
-      isLoading: true,
-      poiList: {},
-      error: null,
-    };
-    fetchPosts() {
-      fetch(`http://localhost:5000/free-now/vehicles`)
-        .then(response => response.json())
-        .then(
-          data =>
-            this.setState({
-              poiList: data,
-              isLoading: false,
-            })
-        )
-        .catch(error => this.setState({ error, isLoading: false }));
-    }
-  
-    componentDidMount() {
-      this.fetchPosts();
-    }
-  
-    render() {
-      const { isLoading, poiList, error } = this.state;
-      return (
-        <React.Fragment>
-          <h1>React Fetch - Cars</h1>
-          <hr />
-          {!isLoading ? Object.keys(poiList).map(key => <Car key={key} body={poiList[key]} />) : <h3>Loading...</h3>}
-        </React.Fragment>
-      );
-    }
-  }
-  
-  
-  ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

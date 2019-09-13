@@ -1,53 +1,47 @@
 import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-const Post = ({ body }) => {
-  return (
-    <div>
-      {body.map(post => {
-        const { _id, title, content } = post;
-        return (
-          <div key={_id}>
-            <h2>{title}</h2>
-            <p>{content}</p>
-            <hr />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+import {Car} from './components/cars.js';
 
-export class App extends React.Component {
-  state = {
-    isLoading: true,
-    posts: [],
-    error: null,
-  };
-  fetchPosts() {
-    fetch(`https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/posts.json`)
-      .then(response => response.json())
-      .then(
-        data =>
-          this.setState({
-            posts: data,
-            isLoading: false,
-          })
-      )
-      .catch(error => this.setState({ error, isLoading: false }));
+  
+  class App extends React.Component {
+    state = {
+      isLoading: true,
+      poiList: {},
+      error: null,
+    };
+    fetchPosts() {
+      fetch(`http://localhost:5000/free-now/vehicles`)
+        .then(response => response.json())
+        .then(
+          data =>
+            this.setState({
+              poiList: data,
+              isLoading: false,
+            })
+        )
+        .catch(error => this.setState({ error, isLoading: false }));
+    }
+  
+    componentDidMount() {
+      this.fetchPosts();
+    }
+  
+    render() {
+      const { isLoading, poiList, error } = this.state;
+      return (
+        <React.Fragment>
+          <h1>React Fetch - Cars</h1>
+          <hr />
+          {!isLoading ? Object.keys(poiList).map(key => <Car key={key} body={poiList[key]} />) : <h3>Loading...</h3>}
+        </React.Fragment>
+      );
+    }
   }
+  
+  
 
-  componentDidMount() {
-    this.fetchPosts();
-  }
 
-  render() {
-    const { isLoading, posts, error } = this.state;
-    return (
-      <React.Fragment>
-        <h1>React Fetch - Blog</h1>
-        <hr />
-        {!isLoading ? Object.keys(posts).map(key => <Post key={key} body={posts[key]} />) : <h3>Loading...</h3>}
-      </React.Fragment>
-    );
-  }
-}
+
+export default App;
