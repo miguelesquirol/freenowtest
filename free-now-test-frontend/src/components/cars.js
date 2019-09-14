@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './cars.css';
+
 
 
 export const Car = ({ body }) => {
@@ -8,6 +10,7 @@ export const Car = ({ body }) => {
       {body.map(poiList => {
         const { id, state, type, coordinate } = poiList;
         return (
+
           <div key={id}>
             <h2>{id}</h2>
             <p>Latitude: {coordinate.latitude}</p>
