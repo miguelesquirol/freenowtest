@@ -1,14 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import {Fetch} from './fetch.js';
 
 export class MapArea extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        markers: [],
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
+        markers: JSON.stringify(this.props.json)
+    }
+  }
+  
  
-    state = {
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-    };
+
+    componentDidMount(){
+      // or you can set markers list somewhere else
+      // please also set your correct lat & lng
+      // you may only use 1 image for all markers, if then, remove the img_src attribute ^^
+     
+    }
   
     onMarkerClick = (props, marker, e) =>
       this.setState({
@@ -27,18 +41,22 @@ export class MapArea extends React.Component {
     };
   
     render() {
+      console.log(this.markers)
       return (
         <Map google={this.props.google}
             onClick={this.onMapClicked}>
 
-      <Marker
-        title={'The marker`s title will appear as a tooltip.'}
-        name={'SOMA'}
-        position={{lat: 37.778519, lng: -122.405640}} />
-      <Marker
-        name={'Dolores park'}
-        position={{lat: 37.759703, lng: -122.428093}} />
-      <Marker />
+     
+          {this.state.markers.map((marker, i) =>{
+
+              return(
+                <Marker key={i} onClick={this.onMarkerClick}
+                  name = {marker.name}
+                  position={{lat: marker.lat, lng:marker.lng}} 
+                />
+
+              )
+            })}
 
   
           <Marker onClick={this.onMarkerClick}
