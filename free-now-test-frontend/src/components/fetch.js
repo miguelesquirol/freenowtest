@@ -31,11 +31,12 @@ import MapArea from './map.js';
     render() {
       const { isLoading, poiList, error } = this.state;
       
+      
       return (
         <React.Fragment>
-         <MapArea json={poiList}/>
+         
 
-       {!isLoading ? Object.keys(poiList).map(key => <Car key={key} body={poiList[key]} />) : <h3>Loading...</h3>}
+        {!isLoading ? <MapArea poiList={poiList}/> : <h3>Loading...</h3>}
         </React.Fragment>
       );
     }

@@ -11,7 +11,7 @@ export class MapArea extends React.Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
-        markers: JSON.stringify(this.props.json)
+        json: this.props.json
     }
   }
   
@@ -21,7 +21,34 @@ export class MapArea extends React.Component {
       // or you can set markers list somewhere else
       // please also set your correct lat & lng
       // you may only use 1 image for all markers, if then, remove the img_src attribute ^^
-     
+  
+      const jsonvar = this.props.poiList.poiList
+      
+      const values = Object.values(jsonvar)
+      
+      var objmarker = {}
+      var arr = [];
+
+      for (var key in values) {
+        var latitude = values[key].coordinate["latitude"]
+        var longitude = values[key].coordinate["longitude"]
+        
+        objmarker['lat'] = latitude;
+        objmarker['lng'] = longitude;
+        arr.push(objmarker);
+        
+       
+
+      }
+
+      var key = {"markers" : [arr]}
+
+      console.log(key)
+
+      this.setState(key);
+
+
+      
     }
   
     onMarkerClick = (props, marker, e) =>
@@ -41,10 +68,30 @@ export class MapArea extends React.Component {
     };
   
     render() {
-      console.log(this.markers)
+
+
+
+
+      // const poiList = Object.keys(this.props.json)
+      // console.log(typeof poiList)
+      // console.log(Object.keys(poiList).lenght);
+
+      // //  console.log(Object.keys(jsonvar).length)
+
+    //   const values = Object.values(this.props.json  )
+    //   console.log(values)
+
+    //   for (var key in values) {
+    //         console.log(values[key].coordinate["latitude"]);
+    //   }
+
+        
+
       return (
+        
         <Map google={this.props.google}
-            onClick={this.onMapClicked}>
+            onClick={this.onMapClicked}
+            initialCenter = {{lat: 53.5532316, lng:10.0087783}}>
 
      
           {this.state.markers.map((marker, i) =>{
@@ -55,12 +102,11 @@ export class MapArea extends React.Component {
                   position={{lat: marker.lat, lng:marker.lng}} 
                 />
 
+            
+
               )
             })}
 
-  
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'} />
   
           <InfoWindow
             marker={this.state.activeMarker}
