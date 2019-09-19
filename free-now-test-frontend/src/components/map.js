@@ -17,38 +17,21 @@ export class MapArea extends React.Component {
   
  
 
-    componentDidMount(){
-      // or you can set markers list somewhere else
-      // please also set your correct lat & lng
-      // you may only use 1 image for all markers, if then, remove the img_src attribute ^^
-  
-      const jsonvar = this.props.poiList.poiList
-      
-      const values = Object.values(jsonvar)
-      
-      var objmarker = {}
-      var arr = [];
+    componentDidMount(){  
+      const values = Object.values(this.props.poiList.poiList)
+      let arr = [];
 
-      for (var key in values) {
-        var latitude = values[key].coordinate["latitude"]
-        var longitude = values[key].coordinate["longitude"]
-        
-        objmarker['lat'] = latitude;
-        objmarker['lng'] = longitude;
-        arr.push(objmarker);
-        
-       
+      for (let key in values) {
 
+        let data = {'lat' : values[key].coordinate["latitude"], 
+                           'lng' :  values[key].coordinate["longitude"],
+                           'state' : values[key].state,
+                           'type' : values[key].type};
+        arr.push(data);
       }
 
-      var key = {"markers" : [arr]}
+      this.setState({"markers" : arr});
 
-      console.log(key)
-
-      this.setState(key);
-
-
-      
     }
   
     onMarkerClick = (props, marker, e) =>
@@ -57,6 +40,7 @@ export class MapArea extends React.Component {
         activeMarker: marker,
         showingInfoWindow: true
       });
+      
   
     onMapClicked = (props) => {
       if (this.state.showingInfoWindow) {
@@ -68,24 +52,7 @@ export class MapArea extends React.Component {
     };
   
     render() {
-
-
-
-
-      // const poiList = Object.keys(this.props.json)
-      // console.log(typeof poiList)
-      // console.log(Object.keys(poiList).lenght);
-
-      // //  console.log(Object.keys(jsonvar).length)
-
-    //   const values = Object.values(this.props.json  )
-    //   console.log(values)
-
-    //   for (var key in values) {
-    //         console.log(values[key].coordinate["latitude"]);
-    //   }
-
-        
+      console.log(this.props.placemarks)
 
       return (
         
@@ -98,12 +65,13 @@ export class MapArea extends React.Component {
 
               return(
                 <Marker key={i} onClick={this.onMarkerClick}
-                  name = {marker.name}
+                  type = {marker.type}
+                  state = {marker.state}
                   position={{lat: marker.lat, lng:marker.lng}} 
+                  icon={{
+                    url: "../taxi.png",
+                    }}
                 />
-
-            
-
               )
             })}
 
@@ -112,7 +80,9 @@ export class MapArea extends React.Component {
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}>
               <div>
-                <h1>{this.state.selectedPlace.name}</h1>
+                <h1>{this.state.selectedPlace.type}</h1>
+                <h2>{this.state.selectedPlace.state}</h2>
+
               </div>
           </InfoWindow>
         </Map>
@@ -121,7 +91,4 @@ export class MapArea extends React.Component {
   }
 
 
-export default GoogleApiWrapper({
-    apiKey: 'AIzaSyCVm1D8yiD0ZbKNIt1ObzdkzZoutb1y1oE'
-  })(MapArea);
-  
+export default GoogleApiWrapper({apiKey: 'AIzaSyCVm1D8yiD0ZbKNIt1ObzdkzZoutb1y1oE'})(MapArea);

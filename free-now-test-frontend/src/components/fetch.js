@@ -11,7 +11,7 @@ import MapArea from './map.js';
       lon: -122.00
     };
    
-    fetchPosts() {
+    fetchPosts1() {
       fetch(`http://localhost:5000/free-now/vehicles`)
         .then(response => response.json())
         .then(
@@ -23,20 +23,35 @@ import MapArea from './map.js';
         )
         .catch(error => this.setState({ error, isLoading: false }));
     }
+
+    fetchPosts2() {
+      fetch(`http://localhost:5000/share-now/vehicles`)
+        .then(response => response.json())
+        .then(
+          data =>
+            this.setState({
+              placemarks: data,
+              isLoading: false,
+            })
+        )
+        .catch(error => this.setState({ error, isLoading: false }));
+    }
   
     componentDidMount() {
-      this.fetchPosts();
+      this.fetchPosts1();
+      this.fetchPosts2();
+
     }
   
     render() {
-      const { isLoading, poiList, error } = this.state;
+      const { isLoading, poiList, placemarks, error } = this.state;
       
       
       return (
         <React.Fragment>
          
 
-        {!isLoading ? <MapArea poiList={poiList}/> : <h3>Loading...</h3>}
+        {!isLoading ? <MapArea poiList={poiList} placemarks={placemarks} /> : <h3>Loading...</h3>}
         </React.Fragment>
       );
     }
