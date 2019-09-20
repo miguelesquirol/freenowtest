@@ -1,4 +1,4 @@
-##My Job
+# My Job
 
 I followed de instructions to the best of my abilities, I know there are some issues on the overall architecture that with more time and mentorship can be fixed.
 
@@ -17,7 +17,7 @@ Miguel Esquirol
 ---
 
 
-#FREE NOW Frontend Test
+# FREE NOW Frontend Test
 Please finish the tasks specified below and send us the code as a '.zip' file afterwards.
 Keep the following in mind while implementing the given tasks:
 - The task is chosen to be simple enough to be finished within a maximum of four hours.
