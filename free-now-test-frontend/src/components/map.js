@@ -138,11 +138,11 @@ export class MapArea extends React.Component {
       <div>
         <div className="buttonwrapper">
         <button onClick={this.toggleHiddenFree.bind(this)}  style={{backgroundColor:this.state.bgColorfree}}>
-          Free Now
+          Free  Cars
         </button>
 
         <button onClick={this.toggleHiddenShare.bind(this)}  style={{backgroundColor:this.state.bgColorshow}}>
-          Show Now
+          Shared  Cars
         </button>
        
       </div>

@@ -8,6 +8,7 @@
 button {
   padding:20px;
   margin:20px;
+  font-size:18px;
 }
 
 button:first-child {
