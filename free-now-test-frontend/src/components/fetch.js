@@ -1,8 +1,8 @@
 import React from 'react';
 import {Car} from './cars.js';
 import MapArea from './map.js';
-
   export class Fetch extends React.Component {
+    
     state = {
       isLoading: true,
       poiList: {},
@@ -49,8 +49,6 @@ import MapArea from './map.js';
       
       return (
         <React.Fragment>
-         
-
         {!isLoading ? <MapArea poiList={poiList} placemarks={placemarks} /> : <h3>Loading...</h3>}
         </React.Fragment>
       );
