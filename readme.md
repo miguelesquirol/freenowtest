@@ -1,3 +1,22 @@
+##My Job
+
+I followed de instructions to the best of my abilities, I know there are some issues on the overall architecture that with more time and mentorship can be fixed.
+
+Design-wise I did the basics without much decorations, but that can also could be greatly improved. I have complete trust on my habilities with CSS to improve that.
+
+I know that there are better ways to do this job and to clean up the code, but I don't have (yet) the experience or time on React to do it right now, but I'm looking forward to improve.
+
+Thanks for the opportunity 
+
+Miguel Esquirol
+
+[miguelesquirol.com](http://miguelesquirol.com)
+
+
+
+---
+
+
 #FREE NOW Frontend Test
 Please finish the tasks specified below and send us the code as a '.zip' file afterwards.
 Keep the following in mind while implementing the given tasks:
